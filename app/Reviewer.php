@@ -15,11 +15,8 @@ class Reviewer extends Model
 
     public function papers()
     {
-        return $this->belongsToMany('App\Paper', 'reviews');
-    }
-
-    public function reviews()
-    {
-        return $this->hasMany('App\Review');
+        return $this->belongsToMany('App\Paper', 'reviews',
+            'reviewer_id', 'paper_id', 'user_id')
+            ->withPivot('score', 'comment', 'passed')->as('review');
     }
 }

@@ -16,8 +16,8 @@ class AuthorsTableSeeder extends Seeder
         \Bezhanov\Faker\ProviderCollectionHelper::addAllProvidersTo($faker);
         $author_ids = range(1, 40);
         foreach ($author_ids as $author_id) {
-            $is_institute = rand(0, 1);
-            if ($is_institute) {
+            $organization_type = rand(0, 1);
+            if ($organization_type==0) {
                 $organization_name = $faker->university;
                 $organization_email = $faker->email;
             } else {
@@ -27,7 +27,7 @@ class AuthorsTableSeeder extends Seeder
             DB::table('authors')->insert([
                 'user_id' => $author_id,
                 'organization_name' => $organization_name,
-                'organization_is_institute' => $is_institute,
+                'organization_type' => $organization_type,
                 'organization_country' => $faker->countryCode,
                 'organization_address' => $faker->address,
                 'organization_email' => rand(0, 1) ? $organization_email : null,

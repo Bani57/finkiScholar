@@ -18,12 +18,12 @@ class ReviewsTableSeeder extends Seeder
             $reviewer_ids = $faker->randomElements(range(41, 50), 3, false);
             foreach ($reviewer_ids as $reviewer_id) {
                 $score = rand(1, 5);
-                DB::table('reviews')->insert([
+                DB::table('reviews')->insert([//,
                     'reviewer_id' => $reviewer_id,
                     'paper_id' => $i,
                     'score' => $score,
                     'comment' => rand(0, 1) ? $faker->text(50) : null,
-                    'passed' => $score < 3 ? false : rand(0, 1),
+                    'passed' => $score < 3 ? -1 : rand(-1, 1),
                 ]);
             }
         }

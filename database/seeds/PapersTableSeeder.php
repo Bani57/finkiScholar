@@ -18,7 +18,7 @@ class PapersTableSeeder extends Seeder
             $title = $faker->sentence(10);
             DB::table('papers')->insert([ //,
                 'title' => $title,
-                'file' => './papers/' . $title . '.pdf',
+                'file' => $title . '.pdf',
                 'abstract' => $faker->text(150),
                 'status' => 0,
                 'date_submitted' => null,

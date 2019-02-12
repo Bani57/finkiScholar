@@ -19,12 +19,12 @@ class UsersTableSeeder extends Seeder
             DB::table('users')->insert([ //,
                 'username' => $username,
                 'email' => $faker->unique()->email,
-                'password' => strtolower($username),
+                'password' => bcrypt(strtolower($username)),
                 'first_name' => $faker->firstName,
                 'last_name' => $faker->lastName,
-                'description' => $faker->sentence,
+                'description' => rand(0, 1) ? $faker->sentence : null,
                 'dob' => $faker->date(),
-                'picture' => $faker->placeholder(),
+                'picture' => null,
             ]);
         }
     }

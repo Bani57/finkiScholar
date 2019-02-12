@@ -22,4 +22,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = array('password', 'remember_token');
+
+    public function author()
+    {
+        return $this->hasOne('App\Author');
+    }
+
+    public function reviewer()
+    {
+        return $this->hasOne('App\Reviewer');
+    }
 }

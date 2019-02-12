@@ -16,7 +16,7 @@ class CreateAuthorsTable extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->string('organization_name');
-            $table->boolean('organization_is_institute');
+            $table->integer('organization_type');
             $table->string('organization_country');
             $table->string('organization_address');
             $table->string('organization_email')->nullable();

@@ -15,33 +15,29 @@ class Paper extends Model
 
     public function authors()
     {
-        return $this->belongsToMany('App\Author', 'authorships');
+        return $this->belongsToMany('App\Author', 'authorships',
+            'paper_id', 'author_id', 'id', 'user_id')
+            ->withPivot('part')->as('authorship');
     }
 
     public function citations()
     {
         return $this->belongsToMany('App\Paper', 'citations',
-            'cited_paper_id', 'citing_paper_id');
+            'cited_paper_id', 'citing_paper_id')
+            ->withPivot('part')->as('citation');
     }
 
     public function bibliography()
     {
         return $this->belongsToMany('App\Paper', 'citations',
-            'citing_paper_id', 'cited_paper_id');
-    }
-
-    public function bibliography_external()
-    {
-        return $this->hasMany('App\ExternalCitation');
+            'citing_paper_id', 'cited_paper_id')
+            ->withPivot('part')->as('citation');
     }
 
     public function reviewers()
     {
-        return $this->belongsToMany('App\Reviewer', 'reviews');
-    }
-
-    public function reviews()
-    {
-        return $this->hasMany('App\Review');
+        return $this->belongsToMany('App\Reviewer', 'reviews',
+            'paper_id', 'reviewer_id', 'id', 'user_id')
+            ->withPivot('score', 'comment', 'passed')->as('review');
     }
 }
