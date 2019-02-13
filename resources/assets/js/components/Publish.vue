@@ -32,7 +32,7 @@
             <select class="ui multiple search selection dropdown" multiple name="coauthors" v-model="coauthors"
                     ref="coauthorsDropdown">
                 <option value="">Search here to credit any coauthors...</option>
-                <option v-for="author in allAuthors" v-if="author.id!==currentUser.id" :value="author.id">
+                <option v-for="author in allAuthors" v-if="currentUser&&author.id!==currentUser.id" :value="author.id">
                     {{author.first_name + " " + author.last_name}}
                 </option>
             </select>
@@ -144,7 +144,28 @@
                 }).then(data => {
                     if (data) {
                         vm.currentUser = data;
+                        vm.getCurrentUserRole();
                     } else window.location.href = '/';
+                    return data
+                })
+            },
+            getCurrentUserRole() {
+                fetch(`http://localhost:8000/users/${this.currentUser.id}/role`, {
+                    credentials: 'include'
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json()
+                    } else {
+                        return Promise.reject(new Error('Failed getting role of current user'))
+                    }
+                }, reason => {
+                    toastr.options.preventDuplicates = true;
+                    toastr.error('Unable to fetch role of current user. Try reloading', 'ERROR');
+                    return Promise.reject(reason)
+                }).then(data => {
+                    if (data !== 0) {
+                        window.location.href = '/';
+                    }
                     return data
                 })
             },
