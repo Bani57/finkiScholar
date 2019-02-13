@@ -14,7 +14,9 @@
                  style="text-align: left; overflow-y: auto; height: 8em;">
                 <div class="header">Sub-topics</div>
                 <ul class="ui list">
-                    <li class="item" v-for="subtopic in subtopics">{{subtopic.name}}</li>
+                    <li class="item" v-for="subtopic in subtopics">
+                        <a @click="selectAncestor(subtopic.id)">{{subtopic.name}}</a>
+                    </li>
                 </ul>
             </div>
             <select class="ui fluid search selection dropdown" ref="topicsDropdown" v-model="selectedTopic">
