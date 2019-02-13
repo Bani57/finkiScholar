@@ -1,5 +1,5 @@
 <template>
-    <form class="ui form" style="width: 50%; margin: 0 auto !important; padding-top: 3em;"
+    <form class="ui form" style="width: 75%; margin: 0 auto !important; padding-top: 3em;"
           enctype="multipart/form-data">
         <div class="ui large header">Registration</div>
         <div class="four fields">
@@ -51,7 +51,7 @@
             </div>
             <div class="required field">
                 <label>Role</label>
-                <div class="ui buttons">
+                <div class="ui fluid buttons">
                     <div @click="setAsAuthor()" class="ui blue button" :class="{active: role===0}">Author</div>
                     <div class="or"></div>
                     <div @click="setAsReviewer()" class="ui red button" :class="{active: role===1}">Reviewer</div>
@@ -59,18 +59,20 @@
             </div>
             <div class="field">
                 <label>Actions</label>
-                <div @click="register()" class="ui blue submit button field">
-                    Register
-                </div>
-                <div @click="clearRegisterFields()" class="ui clear button field" style="margin-left: 15px">
-                    Clear
+                <div @click="register()" class="ui fluid buttons">
+                    <div class="ui blue submit button">
+                        Register
+                    </div>
+                    <div @click="clearRegisterFields()" class="ui clear button">
+                        Clear
+                    </div>
                 </div>
             </div>
         </div>
         <div v-show="role===0" class="two fields">
             <div class="required field">
                 <label>Organization Type</label>
-                <div class="ui buttons">
+                <div class="ui fluid buttons">
                     <div @click="setAsInstitute()" class="ui blue button" :class="{active: organization_type===0}">
                         Institute
                     </div>
@@ -111,7 +113,7 @@
                        placeholder="Enter the contact number of your organization..."/>
             </div>
         </div>
-        <div v-if="validation_errors" class="ui visible error message" style="height: 15em; overflow-y: scroll;">
+        <div v-if="validation_errors" class="ui visible error message" style="height: 15em; overflow-y: auto;">
             <i class="close icon"></i>
             <div class="header">
                 Validation errors

@@ -6,7 +6,7 @@
                 {{'Welcome, ' + currentUserName + '!'}}
                 <div class="sub header" style="margin-top: 20px">
                     Click on <b>My profile</b> to view your info, submit a paper if you're an author or manage your
-                    reviews if you're a reviewer.<br/>
+                    reviews if you're a reviewer.<br/><br/>
                     Click on <b>Archive</b> to browse our huge library of submitted papers, you might find just what you
                     need!
                 </div>

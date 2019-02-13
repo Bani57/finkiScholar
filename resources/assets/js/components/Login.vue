@@ -1,7 +1,10 @@
 <template>
     <div class="ui form" style="width: 50%; margin: 0 auto !important;  padding-top: 3em;">
         <div class="ui large header">Login</div>
-        <div v-show="showMessage" class="ui error message">Incorrect email or password!</div>
+        <div v-if="showMessage" class="ui visible error message">
+            <i class="close icon"></i>
+            Incorrect email or password!
+        </div>
         <div class="required field">
             <label>Email</label>
             <input type="email" name="email" v-model="email" placeholder="Enter email here..."/>
@@ -10,17 +13,22 @@
             <label>Password</label>
             <input type="password" name="password" v-model="password" placeholder="Enter password here..."/>
         </div>
-        <div class="field">
+        <div class="field" style="text-align: left">
             <div class="ui checkbox">
                 <input type="checkbox" v-model="remember">
                 <label>Remember me</label>
             </div>
         </div>
-        <div @click="login()" class="ui blue submit button field">
-            Login
-        </div>
-        <div @click="clearLoginFields()" class="ui clear button field" style="margin-left: 15px">
-            Clear
+        <div class="field">
+            <label>Actions</label>
+            <div class="ui fluid buttons">
+                <div @click="login()" class="ui blue submit button">
+                    Login
+                </div>
+                <div @click="clearLoginFields()" class="ui clear button">
+                    Clear
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -44,6 +52,7 @@
                 this.email = null;
                 this.password = null;
                 this.remember = false;
+                this.showMessage=false;
             },
             checkIfUserLoggedIn() {
                 fetch(`http://localhost:8000/users/check`, {

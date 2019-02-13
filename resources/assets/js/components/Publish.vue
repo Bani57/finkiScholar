@@ -1,5 +1,5 @@
 <template>
-    <form class="ui form" style="width: 50%; margin: 0 auto !important; padding-top: 3em;"
+    <form class="ui form" style="width: 75%; margin: 0 auto !important; padding-top: 3em;"
           enctype="multipart/form-data">
         <div class="ui large header">Publish paper</div>
         <div class="three fields">
@@ -66,7 +66,7 @@
             <div class="ui blue submit button" @click="publish()">Publish</div>
             <div class="ui clear button" @click="clearFields()">Clear</div>
         </div>
-        <div v-if="validationErrors" class="ui visible error message" style="height: 10em; overflow-y: scroll;">
+        <div v-if="validationErrors" class="ui visible error message" style="height: 10em; overflow-y: auto;">
             <i class="close icon"></i>
             <div class="header">
                 Validation errors
