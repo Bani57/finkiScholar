@@ -37,7 +37,8 @@
                                 <i class="calendar icon"></i>{{moment(paper.created_at).format('DD MMMM YYYY')}}
                             </div>
                             <div class="extra">
-                                <i class="paperclip icon"></i><a :href="getLinkToPdfFile(paper.id, paper.file)">File</a>
+                                <i class="paperclip icon"></i><a :href="getLinkToPdfFile(paper.id, paper.file)"
+                                                                 target="_blank">File</a>
                             </div>
                         </div>
                     </div>

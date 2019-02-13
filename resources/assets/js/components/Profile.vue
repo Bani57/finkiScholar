@@ -158,7 +158,7 @@
                                 {{moment(paper.created_at).format('DD MMMM YYYY')}}
                             </div>
                             <a v-if="leadAuthors" class="ui link"
-                               :href="getPaperPdfLink(paper.id,paper.file)" style="display: block">Read
+                               :href="getPaperPdfLink(paper.id,paper.file)" target="_blank" style="display: block">Read
                                 paper</a>
                             <a v-if="pendingReviews" @click="showUpdateReviewModal(index)" class="ui link"
                                style="display: block">Update review</a>
