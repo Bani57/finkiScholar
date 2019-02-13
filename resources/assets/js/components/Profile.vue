@@ -243,13 +243,23 @@
             }
         },
         computed: {
+            citationsOnlyAccepted() {
+                if (this.citations && this.citations.length) {
+                    let onlyAccepted = [];
+                    for (var i = 0; i < this.citations.length; i++) {
+                        if (this.papers[i].status === 1)
+                            onlyAccepted.push(this.citations[i]);
+                    }
+                    return onlyAccepted;
+                } else return [];
+            },
             totalPapers() {
-                if (this.papers) {
+                if (this.papers && this.papers.length) {
                     return this.papers.length;
                 } else return 0;
             },
             favouriteTopic() {
-                if (this.topics) {
+                if (this.topics && this.papers.length) {
                     let counts = {};
                     for (var topic in this.topics) {
                         topic = this.topics[topic];
@@ -265,52 +275,39 @@
                     return 'N/A';
             },
             totalCitations() {
-                if (this.citations) {
-                    return this.citations.reduce((a, b) => a + b, 0);
+                if (this.citationsOnlyAccepted.length) {
+                    return this.citationsOnlyAccepted.reduce((a, b) => a + b, 0);
                 } else return 0;
             },
             averageCitations() {
-                if (this.citations) {
-                    return this.totalCitations / this.numAcceptedPapers;
+                if (this.citationsOnlyAccepted.length) {
+                    return this.totalCitations / this.citationsOnlyAccepted.length;
                 } else return 0;
             },
             h_index() {
-                if (this.citations) {
-                    let sorted_citations = this.citations.slice();
+                if (this.citationsOnlyAccepted.length) {
+                    let sorted_citations = this.citationsOnlyAccepted.slice();
                     sorted_citations.sort((a, b) => b - a);
                     let minimums = [];
                     for (var i = 0; i < sorted_citations.length; i++)
                         minimums.push(Math.min(i, sorted_citations[i]));
-                    return minimums.reduce((a, b) => Math.max(a, b));
-
-
+                    return minimums.reduce((a, b) => Math.max(a, b)) + 1;
                 } else return 0;
             },
             i10_index() {
-                if (this.citations)
-                    return this.citations.reduce(function (a, b) {
+                if (this.citationsOnlyAccepted.length)
+                    return this.citationsOnlyAccepted.reduce(function (a, b) {
                         if (b >= 10) return a + 1; else return a;
                     }, 0);
                 else return 0;
             },
-            numAcceptedPapers() {
-                if (this.papers) {
-                    let num_accepted = 0;
-                    for (var paper in this.papers) {
-                        paper = this.papers[paper];
-                        if (paper.status === 1)
-                            num_accepted++;
-                    }
-                    return num_accepted;
-                } else return 0;
-            },
             acceptanceRate() {
-                if (this.papers) {
-                    return 100 * this.numAcceptedPapers / this.totalPapers;
+                if (this.papers && this.totalPapers) {
+                    return 100 * this.citationsOnlyAccepted.length / this.totalPapers;
                 } else return 0;
             },
             averageReviewScore() {
-                if (this.reviews) {
+                if (this.reviews && this.reviews.length) {
                     let review_scores = [];
                     for (var review in this.reviews) {
                         review = this.reviews[review];
@@ -343,8 +340,7 @@
                         vm.currentUser = data;
                         vm.getCurrentUserRole();
                         vm.getProfilePictureSrc();
-                    }
-                    else{
+                    } else {
                         window.location.href = '/';
                     }
                     return data
@@ -639,7 +635,6 @@
                     comment: vm.reviewComment,
                     passed: vm.reviewPassed,
                 };
-                console.log(review);
                 fetch(`http://localhost:8000/reviews`, {
                     method: 'PUT',
                     body: JSON.stringify(review),
