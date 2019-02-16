@@ -12,9 +12,5 @@ yarn-error.log
 .env
 semantic/
 public/fonts/
-public/js/vueapp.js
 public/images/profile_pictures/
 public/papers_files/
-public/css/
-public/js/
-public/mix-manifest.json
